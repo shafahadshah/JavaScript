@@ -46,5 +46,45 @@ console.log(Number.NaN); //NaN
 //isNaN
 console.log(Number.isNaN); //isNaN
 
+//Epsilon
+console.log(Number.EPSILON); //2.220446049250313e-16
+
+//Number Method
+//parseInt 
+let a =12.34;
+console.log(Number.parseInt(a));
+
+//parseFloat 
+console.log(Number.parseFloat(a));
+
+//isFinite
+console.log(Number.isFinite(a)); //true
+console.log(Number.isFinite(Infinity)); // false
+
+//Number Instance Method(Used on Primitive Number)
+//toFixed
+let x = 123.3655575850;
+console.log(typeof x.toFixed(3)); //123.366  string
+
+//toExponential
+console.log(x.toExponential(3)); //1.234e+2  string
+
+//toPrecision
+console.log(x.toPrecision(3)); //123   string
+console.log(x.toPrecision(4)); //123.3    string
+
+//toString
+console.log(x.toString()); //'123.3655575850'
+
+//valueOf
+let y = new Number('12334'); 
+console.log(y);              //Number{12334}
+console.log(y.valueOf());  //12334 Primitive Number
+
+
+
+
+
+
 
 
