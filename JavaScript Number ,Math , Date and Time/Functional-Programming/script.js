@@ -172,3 +172,119 @@ module.exports = {
   memoize,
   fastSquare,
 };
+
+//Practice Qestions
+// 1. PURE FUNCTION + WHY USEFUL IN UI RENDERING
+// ------------------------------------------------
+/*
+A pure function:
+ - Depends ONLY on its inputs.
+ - Produces NO side effects.
+ - Always returns the same output for the same input.
+
+Useful in UI:
+ - Predictable rendering.
+ - Easier to test.
+ - No hidden mutations.
+*/
+function pureRender(user) {
+  return `<h1>Hello, ${user.name}</h1>`;
+}
+
+
+
+// 2. USING .map() TO TRANSFORM PRODUCTS → HTML
+// ------------------------------------------------
+const products = [
+  { id: 1, name: "Book", price: 10 },
+  { id: 2, name: "Pen", price: 2 }
+];
+
+const productHTML = products.map(p =>
+  `<div class="product">
+     <h2>${p.name}</h2>
+     <p>$${p.price}</p>
+   </div>`
+);
+
+console.log(productHTML);
+
+
+
+// 3. USING .reduce() TO CALCULATE TOTAL PRICE
+// ------------------------------------------------
+const cart = [
+  { name: "Laptop", price: 999 },
+  { name: "Mouse", price: 49 }
+];
+
+const total = cart.reduce((sum, item) => sum + item.price, 0);
+console.log(total);
+
+
+
+// 4. IMMUTABILITY + UPDATE OBJECT IN ARRAY
+// ------------------------------------------------
+const users = [
+  { id: 1, name: "Sam" },
+  { id: 2, name: "Alex" }
+];
+
+const updatedUsers = users.map(u =>
+  u.id === 2 ? { ...u, name: "Alexander" } : u
+);
+
+console.log(updatedUsers);
+
+
+
+// 5. FUNCTION COMPOSITION (sanitize → trim → capitalize)
+// ------------------------------------------------
+
+// helpers
+const sanitize = str => str.replace(/[<>]/g, "");
+const trim1 = str => str.trim();
+const capitalize1 = str => str.charAt(0).toUpperCase() + str.slice(1);
+
+// compose
+const compose1 = (...fns) => x => fns.reduce((v, fn) => fn(v), x);
+
+const processInput = compose(sanitize, trim, capitalize);
+
+console.log(processInput("   <john>   ")); // "John"
+
+
+
+// 6. DIFFERENCE BETWEEN forEach AND map
+// ------------------------------------------------
+/*
+forEach:
+ - Used for side effects (logging, updating external state).
+ - Returns undefined.
+
+map:
+ - Used to TRANSFORM data.
+ - Returns a NEW ARRAY.
+ 
+Wrong to use map:
+ - When you are NOT using its returned array (i.e., using it only for side effects).
+*/
+
+[1, 2, 3].forEach(n => console.log(n)); // OK
+[1, 2, 3].map(n => console.log(n));     // WRONG use of map
+
+
+
+// 7. IMPLEMENT YOUR OWN .map()
+// ------------------------------------------------
+Array.prototype.myMap = function (callback) {
+  const result = [];
+  for (let i = 0; i < this.length; i++) {
+    if (Object.hasOwn(this, i)) {
+      result.push(callback(this[i], i, this));
+    }
+  }
+  return result;
+};
+
+console.log([1, 2, 3].myMap(n => n * 2));
